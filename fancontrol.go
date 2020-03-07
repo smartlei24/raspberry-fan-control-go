@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/stianeikeland/go-rpio"
+	"github.com/smartlei24/go-rpio"
 )
 
 func main() {
@@ -15,14 +15,14 @@ func main() {
 
 	err := rpio.Open()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("open gpio failed.", err)
 	}
 
 	pin := rpio.Pin(gpioPin)
 	for true {
 		temperature, err := getTemperature()
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal("get temperature failed", err)
 		}
 		if temperature > turnOnTemp && pin.Read() != rpio.High {
 			pin.High()
