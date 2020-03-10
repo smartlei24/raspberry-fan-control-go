@@ -3,6 +3,7 @@ package main
 import (
 	"os/exec"
 	"strconv"
+	"strings"
 )
 
 func getTemperature() (float64, error) {
@@ -16,6 +17,7 @@ func getTemperature() (float64, error) {
 	if err != nil {
 		return 0, err
 	}
-	temperature, err := strconv.ParseFloat(string(out), 32)
+	numberStr := strings.TrimSuffix(string(out), "\n")
+	temperature, err := strconv.ParseFloat(numberStr, 32)
 	return temperature / 1000, err
 }
